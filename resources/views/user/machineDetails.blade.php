@@ -7,11 +7,27 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('success'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {{ session('success') }}
                         </div>
                     @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                   <div class="alert alert-danger">
+                       <ul>
+                           @foreach ($errors->all() as $error)
+                               <li>opps!!! {{ $error }}</li>
+                           @endforeach
+                       </ul>
+                   </div>
+                   @endif
 
                     <div class="row">
                         @include('layouts.sidebar')
@@ -29,7 +45,6 @@
                                     Available Coin: {{auth()->user()->userDetails->coin}}
                                 </div>
                                
-                                @foreach($data as $item)
                                   <div class="col-md-3 card mt-2 mb-2">
                                     {{$item->status}} VMM
                                     <div class="text-center">
@@ -48,18 +63,17 @@
                                     <div class="text-center">
                                         @if($item->status=='In Preparation' || $item->status=='Running')
                                           @else 
-                                          <a href="{{route('machine_details',$item->id)}}" class="btn btn-success mt-3 mb-3">Invest Now</a>
+                                          <form method="post" action="{{route('machine_invest',$item->id)}}">
+                                            @csrf 
+                                          <input type="text" name="invest_amount" class="form-control" placeholder="Invest Amount">
+                                          <button type="submit" class="btn btn-success mt-3 mb-3">Invest Now</button>
+                                         </form>
                                         @endif 
                                     </div>
                                  
                                   </div>
-                                @endforeach 
-
-                                {{$data->links()}}
-
                              </div>
                             @endif  
-
                         </div>
                    </div>  
                 </div>
