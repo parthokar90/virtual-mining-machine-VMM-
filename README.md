@@ -56,4 +56,47 @@ Follow the steps below to run the project locally.
 git clone https://github.com/your-username/virtual-mining-machine-vmm.git
 cd virtual-mining-machine-vmm
 
+2️⃣ Install Composer Dependencies
 composer install
+
+3️⃣ Environment Configuration
+cp .env.example .env
+php artisan key:generate
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=vmm_database
+DB_USERNAME=root
+DB_PASSWORD=
+
+4️⃣ Run Database Migrations
+php artisan migrate
+
+5️⃣ Run the Application
+php artisan serve
+
+Now open your browser and visit:
+http://127.0.0.1:8000
+
+🗂️ Project Structure
+app/
+ ├── Http/
+ │   ├── Controllers/
+ │   ├── Middleware/
+ ├── Models/
+ ├── Services/
+resources/
+ ├── views/
+ ├── css/
+ ├── js/
+routes/
+ ├── web.php
+database/
+ ├── migrations/
+ ├── seeders/
+public/
+ ├── assets/
+
+
+
